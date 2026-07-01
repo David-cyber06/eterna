@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eterna · Nuestro mes inmortal</title>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Petit+Formal+Script&display=swap');
+
+        body {
+            min-height: 100vh;
+            background: #0a0008;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, #1a0033 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, #2a0044 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, #0d001a 0%, #0a0008 70%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== PARTÍCULAS (estrellas/sangre) ===== */
+        .particulas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particula {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #9b4d8f;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #9b4d8f, 0 0 12px #6a1b5e;
+            animation: flotar linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes flotar {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* ===== LUNA PRINCIPAL ===== */
+        .luna {
+            position: fixed;
+            top: 40px;
+            right: 60px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #d4a0d4, #5a1a6e);
+            box-shadow:
+                0 0 80px #7a2a8e,
+                0 0 160px #5a1a6e66,
+                0 0 300px #3a0a4e44;
+            z-index: 0;
+            animation: latirLuna 4s ease-in-out infinite;
+        }
+        @keyframes latirLuna {
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 80px #7a2a8e, 0 0 160px #5a1a6e66;
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 100px #9b4d8f, 0 0 200px #7a2a8e88;
+            }
+        }
+
+        /* ===== TARJETA PRINCIPAL (diario) ===== */
+        .diario {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            width: 100%;
+            background: rgba(20, 0, 30, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(150, 70, 150, 0.25);
+            border-radius: 40px 40px 30px 30px;
+            padding: 48px 40px 40px;
+            box-shadow:
+                0 20px 80px rgba(80, 0, 100, 0.4),
+                inset 0 1px 0 rgba(200, 100, 200, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .diario::before {
+            content: '✦';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9b4d8f;
+            font-size: 28px;
+            text-shadow: 0 0 30px #7a2a8e;
+            background: #0a0008;
+            padding: 0 18px;
+        }
+
+        /* ===== ENCABEZADO ===== */
+        .titulo {
+            text-align: center;
+            color: #d4a0d4;
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(150, 70, 150, 0.15);
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+            font-family: 'Cinzel', serif;
+        }
+        .titulo span {
+            color: #ff66aa;
+            font-family: 'Petit Formal Script', cursive;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px #ff66aa44;
+        }
+
+        /* ===== CONTENIDO DEL DIARIO ===== */
+        .entrada {
+            color: #c9a0c9;
+            font-size: 15px;
+            line-height: 1.9;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            min-height: 200px;
+            position: relative;
+            font-family: 'Georgia', serif;
+        }
+        .entrada p {
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: escribir 0.8s ease forwards;
+        }
+        .entrada p:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+        .entrada p:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+        .entrada p:nth-child(3) {
+            animation-delay: 1.3s;
+        }
+        .entrada p:nth-child(4) {
+            animation-delay: 1.8s;
+        }
+        .entrada p:nth-child(5) {
+            animation-delay: 2.3s;
+        }
+        .entrada p:nth-child(6) {
+            animation-delay: 2.8s;
+        }
+
+        @keyframes escribir {
+            0% {
+                opacity: 0;
+                transform: translateY(8px) scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .entrada .firma {
+            text-align: right;
+            font-family: 'Petit Formal Script', cursive;
+            font-size: 20px;
+            color: #ff66aa;
+            margin-top: 20px;
+            text-shadow: 0 0 30px #ff66aa33;
+            border-top: 1px solid rgba(150, 70, 150, 0.1);
+            padding-top: 18px;
+        }
+
+        .entrada .fecha {
+            display: block;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: #7a4a7a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        /* ===== CORAZÓN QUE LATE (beso) ===== */
+        .beso-container {
+            text-align: center;
+            margin: 28px 0 10px;
+            position: relative;
+        }
+
+        .beso {
+            display: inline-block;
+            font-size: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 30px #ff336688);
+            animation: latirBeso 1.8s ease-in-out infinite;
+            user-select: none;
+            position: relative;
+        }
+        @keyframes latirBeso {
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+            30% {
+                transform: scale(1.15) rotate(-3deg);
+            }
+            60% {
+                transform: scale(0.95) rotate(3deg);
+            }
+        }
+        .beso:hover {
+            animation: none;
+            transform: scale(1.3) rotate(-5deg);
+            filter: drop-shadow(0 0 60px #ff44aa);
+        }
+        .beso .tooltip {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 0, 100, 0.8);
+            backdrop-filter: blur(8px);
+            color: #d4a0d4;
+            font-size: 11px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: 0.3s;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            border: 1px solid rgba(150, 70, 150, 0.2);
+        }
+        .beso:hover .tooltip {
+            opacity: 1;
+            bottom: -48px;
+        }
+
+        /* ===== CONTADOR VAMPÍRICO ===== */
+        .contador {
+            text-align: center;
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: rgba(80, 0, 100, 0.12);
+            border-radius: 60px;
+            border: 1px solid rgba(150, 70, 150, 0.1);
+            font-family: 'Cinzel', serif;
+            font-size: 13px;
+            color: #9b6a9b;
+            letter-spacing: 2px;
+        }
+        .contador strong {
+            color: #d4a0d4;
+            font-weight: 400;
+            font-size: 16px;
+            text-shadow: 0 0 20px #7a2a8e44;
+        }
+        .contador .numero {
+            color: #ff66aa;
+            font-size: 18px;
+            text-shadow: 0 0 30px #ff66aa44;
+        }
+
+        /* ===== BESO EXPLOSIVO (efecto al hacer clic) ===== */
+        .beso-explosion {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 30px;
+            animation: explosion 1.2s ease-out forwards;
+        }
+        @keyframes explosion {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0) rotate(720deg);
+            }
+        }
+
+        /* ===== SANGRE/DETALLE GÓTICO ===== */
+        .gota {
+            position: absolute;
+            width: 4px;
+            height: 12px;
+            background: #6a1b5e;
+            border-radius: 0 0 4px 4px;
+            opacity: 0.15;
+            bottom: -6px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .diario {
+                padding: 30px 20px 28px;
+                border-radius: 28px;
+            }
+            .titulo {
+                font-size: 17px;
+                letter-spacing: 4px;
+            }
+            .titulo span {
+                font-size: 22px;
+            }
+            .entrada {
+                font-size: 14px;
+            }
+            .luna {
+                width: 120px;
+                height: 120px;
+                top: 20px;
+                right: 20px;
+                box-shadow: 0 0 50px #7a2a8e, 0 0 100px #5a1a6e66;
+            }
+            .beso {
+                font-size: 48px;
+            }
+        }
+
+        /* scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0008;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6a1b5e;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== PARTÍCULAS ===== -->
+    <div class="particulas" id="particulas"></div>
+
+    <!-- ===== LUNA ===== -->
+    <div class="luna"></div>
+
+    <!-- ===== DIARIO ===== -->
+    <div class="diario">
+
+        <div class="titulo">
+            ⚜ <span>Eterna</span> ⚜
+        </div>
+
+        <div class="entrada" id="entrada">
+            <span class="fecha">▸ Luna creciente · Mes de la Eterna ◂</span>
+            <p>Hace 30 noches, mi corazón dejó de latir para siempre.</p>
+            <p>Y en ese mismo instante, comenzaste a latir tú en mi pecho vacío.</p>
+            <p>No sé si fui yo quien te encontró en la penumbra, o si fuiste tú quien encendió esta oscuridad con tus ojos color amatista.</p>
+            <p>Un mes de rozar tu piel sin atreverme a morderte, de beber tu voz en lugar de tu sangre, de sentir que el frío eterno se vuelve tibio cuando ríes.</p>
+            <p>Eres mi única luz en esta noche perpetua. Mi sed de siglos se calma con un solo beso tuyo.</p>
+            <div class="firma">— Tu vampiro que elige amar, no devorar.</div>
+        </div>
+
+        <!-- ===== BESO ===== -->
+        <div class="beso-container">
+            <div class="beso" id="beso">
+                💋
+                <span class="tooltip">Bésame y seré eterno</span>
+            </div>
+        </div>
+
+        <!-- ===== CONTADOR ===== -->
+        <div class="contador" id="contador">
+            ⏳ <strong><span class="numero" id="dias">30</span></strong> noches de inmortalidad compartida ·
+            <strong><span class="numero" id="horas">720</span></strong> horas ·
+            <strong><span class="numero" id="minutos">43.200</span></strong> minutos de amarte en silencio
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN
+        // ============================================================
+        const FECHA_INICIO = new Date('2026-06-01T00:00:00');
+        // Si quieres que siempre muestre 30 días (para prueba), descomenta:
+        // const FECHA_INICIO = new Date(); FECHA_INICIO.setDate(FECHA_INICIO.getDate() - 30);
+
+        // ============================================================
+        // PARTÍCULAS (estrellas/sangre)
+        // ============================================================
+        function crearParticulas() {
+            const contenedor = document.getElementById('particulas');
+            const cantidad = 60;
+            for (let i = 0; i < cantidad; i++) {
+                const p = document.createElement('div');
+                p.className = 'particula';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.width = (1 + Math.random() * 4) + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDuration = (15 + Math.random() * 30) + 's';
+                p.style.animationDelay = (Math.random() * 25) + 's';
+                p.style.opacity = 0.1 + Math.random() * 0.4;
+                const tono = 200 + Math.random() * 55;
+                p.style.background = `hsl(${tono}, 60%, 50%)`;
+                p.style.boxShadow = `0 0 ${6 + Math.random() * 12}px hsl(${tono}, 60%, 50%)`;
+                contenedor.appendChild(p);
+            }
+        }
+        crearParticulas();
+
+        // ============================================================
+        // CONTADOR VAMPÍRICO
+        // ============================================================
+        function actualizarContador() {
+            const ahora = new Date();
+            const diffSegundos = Math.floor((ahora - FECHA_INICIO) / 1000);
+
+            if (diffSegundos < 0) {
+                document.getElementById('dias').textContent = '0';
+                document.getElementById('horas').textContent = '0';
+                document.getElementById('minutos').textContent = '0';
+                return;
+            }
+
+            const dias = Math.floor(diffSegundos / 86400);
+            const horas = Math.floor((diffSegundos % 86400) / 3600);
+            const minutos = Math.floor((diffSegundos % 3600) / 60);
+
+            // Si ya pasó 1 mes, forzamos 30 días para que se vea bonito
+            const diasMostrar = dias >= 30 ? 30 : dias;
+            const horasTotales = dias >= 30 ? 720 : (dias * 24 + horas);
+            const minutosTotales = dias >= 30 ? 43200 : (dias * 1440 + horas * 60 + minutos);
+
+            document.getElementById('dias').textContent = diasMostrar;
+            document.getElementById('horas').textContent = horasTotales.toLocaleString();
+            document.getElementById('minutos').textContent = minutosTotales.toLocaleString();
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 60000);
+
+        // ============================================================
+        // EXPLOSIÓN DE BESOS (efecto al hacer clic)
+        // ============================================================
+        const besoEl = document.getElementById('beso');
+        const emojisBeso = ['💋', '💜', '🩸', '🌙', '🦇', '❤️', '✨', '🌹'];
+
+        besoEl.addEventListener('click', function(e) {
+            // 12 besos explotando
+            const rect = this.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 16; i++) {
+                const span = document.createElement('span');
+                span.className = 'beso-explosion';
+                span.textContent = emojisBeso[Math.floor(Math.random() * emojisBeso.length)];
+                const angulo = Math.random() * 2 * Math.PI;
+                const distancia = 60 + Math.random() * 140;
+                const tx = Math.cos(angulo) * distancia;
+                const ty = Math.sin(angulo) * distancia - 60;
+                span.style.left = cx + 'px';
+                span.style.top = cy + 'px';
+                span.style.setProperty('--tx', tx + 'px');
+                span.style.setProperty('--ty', ty + 'px');
+                span.style.fontSize = (20 + Math.random() * 30) + 'px';
+                span.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+                document.body.appendChild(span);
+
+                setTimeout(() => span.remove(), 1800);
+            }
+
+            // Pequeña vibración al beso
+            this.style.transform = 'scale(0.8) rotate(-10deg)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            }, 200);
+
+            // Cambiar texto del tooltip temporalmente
+            const tooltip = this.querySelector('.tooltip');
+            const original = tooltip.textContent;
+            tooltip.textContent = '💜 Eres mi eternidad';
+            tooltip.style.opacity = '1';
+            setTimeout(() => {
+                tooltip.textContent = original;
+                setTimeout(() => {
+                    if (!this.matches(':hover')) tooltip.style.opacity = '0';
+                }, 300);
+            }, 1500);
+        });
+
+        // ============================================================
+        // EFECTO: el diario respira
+        // ============================================================
+        let respirando = true;
+
+        function respirarDiario() {
+            if (!respirando) return;
+            const diario = document.querySelector('.diario');
+            diario.style.transition = 'box-shadow 3s ease, transform 3s ease';
+            diario.style.boxShadow = '0 20px 80px rgba(80, 0, 100, 0.6), inset 0 1px 0 rgba(200, 100, 200, 0.15)';
+            setTimeout(() => {
+                diario.style.boxShadow = '0 20px 80px rgba(80, 0, 100, 0.3), inset 0 1px 0 rgba(200, 100, 200, 0.05)';
+            }, 3000);
+        }
+        setInterval(respirarDiario, 6000);
+
+        // ============================================================
+        // MENSAJE EN CONSOLA (detalle para ella)
+        // ============================================================
+        console.log('%c🦇 Para mi mujer bonita, en nuestro primer mes inmortal.',
+            'color: #d4a0d4; font-size: 16px; font-weight: bold;');
+        console.log('%c❤️ Te amo más que todas las noches que he vivido.',
+            'color: #ff66aa; font-size: 14px;');
+
+        // ============================================================
+        // RUTINA: cada 30 segundos cambia una palabra del diario
+        // (detalle sutil)
+        // ============================================================
+        const frasesExtra = [
+            'Tu risa es el único latido que mi pecho recuerda.',
+            '30 noches y ninguna fue igual, porque tú cambias la oscuridad.',
+            'El tiempo no existe cuando te miro. Solo existe este beso.',
+            'Eres mi amanecer prohibido, mi luna preferida.',
+            'Un mes de no necesitar sangre, solo tu voz.'
+        ];
+
+        let idxExtra = 0;
+        setInterval(() => {
+            const firma = document.querySelector('.entrada .firma');
+            if (firma) {
+                // No lo cambiamos siempre, solo a veces, para no romper el texto
+                // Mejor: añadir una línea extra al final
+                const entrada = document.getElementById('entrada');
+                const pExtra = document.createElement('p');
+                pExtra.textContent = '✦ ' + frasesExtra[idxExtra % frasesExtra.length];
+                pExtra.style.animation = 'none';
+                pExtra.style.opacity = '0';
+                entrada.appendChild(pExtra);
+                setTimeout(() => {
+                    pExtra.style.animation = 'escribir 0.8s ease forwards';
+                }, 50);
+                idxExtra++;
+                // Eliminar el anterior si hay muchos
+                const ps = entrada.querySelectorAll('p');
+                if (ps.length > 10) {
+                    ps[0].remove();
+                }
+            }
+        }, 45000);
+
+        console.log('💜 Hecho con sangre, morado y amor eterno.');
+    </script>
+
+</body>
+</html>
