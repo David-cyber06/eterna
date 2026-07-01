@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eterna · Nuestro mes inmortal</title>
+    <title>Eterno Refugio · Nuestro mes inmortal</title>
     <style>
-        /* ===== RESET Y BASE ===== */
+        /* ============================================================
+           RESET Y BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -18,8 +20,8 @@
             min-height: 100vh;
             background: #0a0008;
             background-image:
-                radial-gradient(ellipse at 20% 50%, #1a0033 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, #2a0044 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 30%, #1a0033 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, #2a0044 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 100%, #0d001a 0%, #0a0008 70%);
             display: flex;
             justify-content: center;
@@ -27,10 +29,12 @@
             font-family: 'Cinzel', serif;
             padding: 20px;
             overflow-x: hidden;
-            position: relative;
+            min-height: 100vh;
         }
 
-        /* ===== PARTÍCULAS (estrellas/sangre) ===== */
+        /* ============================================================
+           PARTÍCULAS (estrellas / polvo de luna)
+           ============================================================ */
         .particulas {
             position: fixed;
             top: 0;
@@ -68,13 +72,15 @@
             }
         }
 
-        /* ===== LUNA PRINCIPAL ===== */
+        /* ============================================================
+           LUNA
+           ============================================================ */
         .luna {
             position: fixed;
-            top: 40px;
-            right: 60px;
-            width: 180px;
-            height: 180px;
+            top: 30px;
+            right: 50px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #d4a0d4, #5a1a6e);
             box-shadow:
@@ -82,7 +88,7 @@
                 0 0 160px #5a1a6e66,
                 0 0 300px #3a0a4e44;
             z-index: 0;
-            animation: latirLuna 4s ease-in-out infinite;
+            animation: latirLuna 5s ease-in-out infinite;
         }
         @keyframes latirLuna {
             0%,
@@ -91,63 +97,83 @@
                 box-shadow: 0 0 80px #7a2a8e, 0 0 160px #5a1a6e66;
             }
             50% {
-                transform: scale(1.03);
-                box-shadow: 0 0 100px #9b4d8f, 0 0 200px #7a2a8e88;
+                transform: scale(1.04);
+                box-shadow: 0 0 120px #9b4d8f, 0 0 220px #7a2a8e88;
             }
         }
 
-        /* ===== TARJETA PRINCIPAL (diario) ===== */
+        /* ============================================================
+           NIEBA (efecto de fondo)
+           ============================================================ */
+        .niebla {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, rgba(80, 0, 100, 0.15), transparent);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           TARJETA PRINCIPAL
+           ============================================================ */
         .diario {
             position: relative;
             z-index: 1;
-            max-width: 600px;
+            max-width: 620px;
             width: 100%;
-            background: rgba(20, 0, 30, 0.75);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(150, 70, 150, 0.25);
+            background: rgba(20, 0, 30, 0.78);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(150, 70, 150, 0.2);
             border-radius: 40px 40px 30px 30px;
-            padding: 48px 40px 40px;
+            padding: 44px 38px 38px;
             box-shadow:
-                0 20px 80px rgba(80, 0, 100, 0.4),
-                inset 0 1px 0 rgba(200, 100, 200, 0.1);
-            transition: all 0.3s ease;
+                0 20px 80px rgba(80, 0, 100, 0.35),
+                inset 0 1px 0 rgba(200, 100, 200, 0.08);
+            transition: box-shadow 3s ease;
         }
 
         .diario::before {
-            content: '✦';
+            content: '🦇';
             position: absolute;
-            top: -14px;
+            top: -18px;
             left: 50%;
             transform: translateX(-50%);
-            color: #9b4d8f;
             font-size: 28px;
-            text-shadow: 0 0 30px #7a2a8e;
+            text-shadow: 0 0 40px #7a2a8e;
             background: #0a0008;
             padding: 0 18px;
+            border-radius: 30px;
+            line-height: 1;
         }
 
-        /* ===== ENCABEZADO ===== */
+        /* ============================================================
+           TÍTULO
+           ============================================================ */
         .titulo {
             text-align: center;
             color: #d4a0d4;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 400;
             letter-spacing: 6px;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(150, 70, 150, 0.15);
-            padding-bottom: 18px;
-            margin-bottom: 24px;
-            font-family: 'Cinzel', serif;
+            border-bottom: 1px solid rgba(150, 70, 150, 0.12);
+            padding-bottom: 16px;
+            margin-bottom: 22px;
         }
         .titulo span {
             color: #ff66aa;
             font-family: 'Petit Formal Script', cursive;
-            font-size: 28px;
+            font-size: 26px;
             letter-spacing: 2px;
             text-shadow: 0 0 30px #ff66aa44;
         }
 
-        /* ===== CONTENIDO DEL DIARIO ===== */
+        /* ============================================================
+           DIARIO
+           ============================================================ */
         .entrada {
             color: #c9a0c9;
             font-size: 15px;
@@ -155,11 +181,10 @@
             font-weight: 300;
             letter-spacing: 0.5px;
             min-height: 200px;
-            position: relative;
             font-family: 'Georgia', serif;
         }
         .entrada p {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             opacity: 0;
             animation: escribir 0.8s ease forwards;
         }
@@ -167,25 +192,28 @@
             animation-delay: 0.3s;
         }
         .entrada p:nth-child(2) {
-            animation-delay: 0.8s;
+            animation-delay: 0.7s;
         }
         .entrada p:nth-child(3) {
-            animation-delay: 1.3s;
+            animation-delay: 1.1s;
         }
         .entrada p:nth-child(4) {
-            animation-delay: 1.8s;
+            animation-delay: 1.5s;
         }
         .entrada p:nth-child(5) {
-            animation-delay: 2.3s;
+            animation-delay: 1.9s;
         }
         .entrada p:nth-child(6) {
-            animation-delay: 2.8s;
+            animation-delay: 2.3s;
+        }
+        .entrada p:nth-child(7) {
+            animation-delay: 2.7s;
         }
 
         @keyframes escribir {
             0% {
                 opacity: 0;
-                transform: translateY(8px) scale(0.98);
+                transform: translateY(10px) scale(0.97);
             }
             100% {
                 opacity: 1;
@@ -198,164 +226,412 @@
             font-family: 'Petit Formal Script', cursive;
             font-size: 20px;
             color: #ff66aa;
-            margin-top: 20px;
+            margin-top: 18px;
             text-shadow: 0 0 30px #ff66aa33;
-            border-top: 1px solid rgba(150, 70, 150, 0.1);
-            padding-top: 18px;
+            border-top: 1px solid rgba(150, 70, 150, 0.08);
+            padding-top: 16px;
         }
 
         .entrada .fecha {
             display: block;
             font-family: 'Cinzel', serif;
-            font-size: 12px;
+            font-size: 11px;
             color: #7a4a7a;
             letter-spacing: 3px;
             text-transform: uppercase;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-align: center;
         }
 
-        /* ===== CORAZÓN QUE LATE (beso) ===== */
-        .beso-container {
-            text-align: center;
-            margin: 28px 0 10px;
+        /* ============================================================
+           VAMPIRO (CSS puro, interactivo)
+           ============================================================ */
+        .vampiro-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0 10px;
             position: relative;
         }
 
-        .beso {
-            display: inline-block;
-            font-size: 60px;
+        .vampiro {
+            position: relative;
+            width: 120px;
+            height: 140px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 30px #ff336688);
-            animation: latirBeso 1.8s ease-in-out infinite;
-            user-select: none;
-            position: relative;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 40px rgba(120, 40, 140, 0.3));
         }
-        @keyframes latirBeso {
-            0%,
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-            30% {
-                transform: scale(1.15) rotate(-3deg);
-            }
-            60% {
-                transform: scale(0.95) rotate(3deg);
-            }
+
+        .vampiro:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 60px rgba(160, 60, 180, 0.5));
         }
-        .beso:hover {
-            animation: none;
-            transform: scale(1.3) rotate(-5deg);
-            filter: drop-shadow(0 0 60px #ff44aa);
+
+        .vampiro:active {
+            transform: scale(0.92);
         }
-        .beso .tooltip {
+
+        /* --- Cuerpo / Capa --- */
+        .vampiro .capa {
             position: absolute;
-            bottom: -40px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(80, 0, 100, 0.8);
-            backdrop-filter: blur(8px);
-            color: #d4a0d4;
-            font-size: 11px;
-            padding: 6px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: 0.3s;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
-            border: 1px solid rgba(150, 70, 150, 0.2);
+            width: 90px;
+            height: 80px;
+            background: radial-gradient(ellipse at 50% 100%, #1a0a22, #0d0015);
+            border-radius: 20px 20px 8px 8px;
+            border: 1px solid rgba(150, 70, 150, 0.15);
+            box-shadow: inset 0 -20px 40px rgba(80, 0, 100, 0.2);
         }
-        .beso:hover .tooltip {
-            opacity: 1;
-            bottom: -48px;
+        /* Cuello de la capa */
+        .vampiro .capa::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 26px;
+            height: 20px;
+            background: #1a0a22;
+            border-radius: 10px 10px 0 0;
+            border: 1px solid rgba(150, 70, 150, 0.1);
+            border-bottom: none;
+        }
+        /* Cuello camisa */
+        .vampiro .capa::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 14px;
+            background: #0d0015;
+            border-radius: 4px 4px 0 0;
+            border-left: 1px solid rgba(150, 70, 150, 0.08);
+            border-right: 1px solid rgba(150, 70, 150, 0.08);
         }
 
-        /* ===== CONTADOR VAMPÍRICO ===== */
+        /* --- Cabeza --- */
+        .vampiro .cabeza {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 62px;
+            background: radial-gradient(ellipse at 50% 40%, #2a102a, #1a081a);
+            border-radius: 50% 50% 30% 30%;
+            border: 1px solid rgba(150, 70, 150, 0.12);
+            box-shadow: inset 0 -10px 30px rgba(80, 0, 100, 0.15);
+        }
+
+        /* --- Pelo --- */
+        .vampiro .pelo {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 68px;
+            height: 32px;
+            background: radial-gradient(ellipse at 50% 0%, #1a0a22, #0d0015);
+            border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+            border: 1px solid rgba(150, 70, 150, 0.06);
+        }
+        .vampiro .pelo::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -6px;
+            width: 20px;
+            height: 20px;
+            background: #1a0a22;
+            border-radius: 50% 0 0 0;
+            transform: rotate(-20deg);
+        }
+        .vampiro .pelo::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            background: #1a0a22;
+            border-radius: 0 50% 0 0;
+            transform: rotate(20deg);
+        }
+
+        /* --- Ojos (brillan) --- */
+        .vampiro .ojos {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .vampiro .ojo {
+            width: 12px;
+            height: 14px;
+            background: radial-gradient(circle at 40% 30%, #ff66aa, #5a1a6e);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ff66aa44, 0 0 40px #7a2a8e33;
+            animation: brillarOjos 3s ease-in-out infinite;
+            position: relative;
+        }
+        .vampiro .ojo::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+        @keyframes brillarOjos {
+            0%,
+            100% {
+                box-shadow: 0 0 20px #ff66aa44, 0 0 40px #7a2a8e33;
+            }
+            50% {
+                box-shadow: 0 0 30px #ff66aa88, 0 0 60px #7a2a8e66;
+            }
+        }
+
+        /* --- Sonrisa / Colmillos --- */
+        .vampiro .boca {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 22px;
+            height: 10px;
+            border-bottom: 2px solid rgba(150, 70, 150, 0.2);
+            border-radius: 0 0 50% 50%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .vampiro .colmillo {
+            width: 3px;
+            height: 6px;
+            background: #d4a0d4;
+            border-radius: 0 0 2px 2px;
+            box-shadow: 0 0 6px #d4a0d466;
+            position: relative;
+            top: 3px;
+        }
+        .vampiro .colmillo::after {
+            content: '🩸';
+            position: absolute;
+            font-size: 6px;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+
+        /* --- Manos (abiertas, acogedoras) --- */
+        .vampiro .mano {
+            position: absolute;
+            bottom: 20px;
+            width: 18px;
+            height: 24px;
+            background: #1a081a;
+            border-radius: 50% 50% 30% 30%;
+            border: 1px solid rgba(150, 70, 150, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-top: 4px;
+            gap: 2px;
+        }
+        .vampiro .mano-izq {
+            left: -6px;
+            transform: rotate(20deg);
+        }
+        .vampiro .mano-der {
+            right: -6px;
+            transform: rotate(-20deg);
+        }
+        .vampiro .dedo {
+            width: 3px;
+            height: 8px;
+            background: #1a081a;
+            border-radius: 2px;
+            border: 1px solid rgba(150, 70, 150, 0.04);
+        }
+
+        /* --- Burbuja de mensaje (al hacer clic) --- */
+        .mensaje-vampiro {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: rgba(20, 0, 30, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(150, 70, 150, 0.2);
+            border-radius: 20px;
+            padding: 14px 22px;
+            color: #d4a0d4;
+            font-size: 14px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            box-shadow: 0 10px 50px rgba(80, 0, 100, 0.3);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .mensaje-vampiro::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid rgba(20, 0, 30, 0.92);
+        }
+        .mensaje-vampiro.visible {
+            transform: translateX(-50%) scale(1);
+        }
+        .mensaje-vampiro span {
+            color: #ff66aa;
+            font-weight: bold;
+        }
+
+        /* ============================================================
+           CONTADOR
+           ============================================================ */
         .contador {
             text-align: center;
-            margin-top: 20px;
-            padding: 16px 20px;
-            background: rgba(80, 0, 100, 0.12);
+            margin-top: 18px;
+            padding: 14px 20px;
+            background: rgba(80, 0, 100, 0.1);
             border-radius: 60px;
-            border: 1px solid rgba(150, 70, 150, 0.1);
+            border: 1px solid rgba(150, 70, 150, 0.08);
             font-family: 'Cinzel', serif;
-            font-size: 13px;
+            font-size: 12px;
             color: #9b6a9b;
             letter-spacing: 2px;
         }
         .contador strong {
             color: #d4a0d4;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 15px;
             text-shadow: 0 0 20px #7a2a8e44;
         }
         .contador .numero {
             color: #ff66aa;
-            font-size: 18px;
+            font-size: 17px;
             text-shadow: 0 0 30px #ff66aa44;
         }
 
-        /* ===== BESO EXPLOSIVO (efecto al hacer clic) ===== */
-        .beso-explosion {
-            position: fixed;
-            pointer-events: none;
-            z-index: 999;
-            font-size: 30px;
-            animation: explosion 1.2s ease-out forwards;
-        }
-        @keyframes explosion {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0) rotate(720deg);
-            }
-        }
-
-        /* ===== SANGRE/DETALLE GÓTICO ===== */
-        .gota {
-            position: absolute;
-            width: 4px;
-            height: 12px;
-            background: #6a1b5e;
-            border-radius: 0 0 4px 4px;
-            opacity: 0.15;
-            bottom: -6px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 480px) {
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 520px) {
             .diario {
-                padding: 30px 20px 28px;
+                padding: 28px 18px 24px;
                 border-radius: 28px;
             }
             .titulo {
-                font-size: 17px;
+                font-size: 16px;
                 letter-spacing: 4px;
             }
             .titulo span {
-                font-size: 22px;
+                font-size: 20px;
             }
             .entrada {
-                font-size: 14px;
+                font-size: 13px;
+                line-height: 1.8;
             }
             .luna {
-                width: 120px;
-                height: 120px;
-                top: 20px;
-                right: 20px;
-                box-shadow: 0 0 50px #7a2a8e, 0 0 100px #5a1a6e66;
+                width: 100px;
+                height: 100px;
+                top: 15px;
+                right: 15px;
+                box-shadow: 0 0 40px #7a2a8e, 0 0 80px #5a1a6e66;
             }
-            .beso {
-                font-size: 48px;
+            .vampiro {
+                width: 90px;
+                height: 110px;
+            }
+            .vampiro .cabeza {
+                width: 48px;
+                height: 50px;
+            }
+            .vampiro .capa {
+                width: 70px;
+                height: 64px;
+            }
+            .vampiro .pelo {
+                width: 54px;
+                height: 26px;
+            }
+            .vampiro .ojos {
+                width: 32px;
+                top: 16px;
+            }
+            .vampiro .ojo {
+                width: 10px;
+                height: 12px;
+            }
+            .vampiro .boca {
+                bottom: 8px;
+                width: 18px;
+            }
+            .vampiro .mano {
+                width: 14px;
+                height: 18px;
+            }
+            .mensaje-vampiro {
+                font-size: 12px;
+                padding: 10px 16px;
+                top: -60px;
+                white-space: normal;
+                min-width: 160px;
+            }
+            .contador {
+                font-size: 10px;
+                padding: 12px 14px;
+            }
+            .contador strong {
+                font-size: 13px;
+            }
+            .contador .numero {
+                font-size: 14px;
             }
         }
 
-        /* scrollbar personalizada */
+        @media (max-width: 380px) {
+            .diario {
+                padding: 22px 14px 18px;
+            }
+            .vampiro {
+                width: 76px;
+                height: 94px;
+            }
+            .mensaje-vampiro {
+                font-size: 11px;
+                padding: 8px 12px;
+                min-width: 130px;
+                top: -50px;
+            }
+            .entrada {
+                font-size: 12px;
+            }
+        }
+
+        /* scroll */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -370,42 +646,92 @@
 </head>
 <body>
 
-    <!-- ===== PARTÍCULAS ===== -->
+    <!-- ============================================================
+    PARTÍCULAS
+    ============================================================ -->
     <div class="particulas" id="particulas"></div>
 
-    <!-- ===== LUNA ===== -->
+    <!-- ============================================================
+    LUNA
+    ============================================================ -->
     <div class="luna"></div>
 
-    <!-- ===== DIARIO ===== -->
+    <!-- ============================================================
+    NIEBLA
+    ============================================================ -->
+    <div class="niebla"></div>
+
+    <!-- ============================================================
+    DIARIO
+    ============================================================ -->
     <div class="diario">
 
         <div class="titulo">
-            ⚜ <span>Eterna</span> ⚜
+            ⚜ <span>Eterno Refugio</span> ⚜
         </div>
 
         <div class="entrada" id="entrada">
-            <span class="fecha">▸ Luna creciente · Mes de la Eterna ◂</span>
-            <p>Hace 30 noches, mi corazón dejó de latir para siempre.</p>
-            <p>Y en ese mismo instante, comenzaste a latir tú en mi pecho vacío.</p>
-            <p>No sé si fui yo quien te encontró en la penumbra, o si fuiste tú quien encendió esta oscuridad con tus ojos color amatista.</p>
-            <p>Un mes de rozar tu piel sin atreverme a morderte, de beber tu voz en lugar de tu sangre, de sentir que el frío eterno se vuelve tibio cuando ríes.</p>
-            <p>Eres mi única luz en esta noche perpetua. Mi sed de siglos se calma con un solo beso tuyo.</p>
-            <div class="firma">— Tu vampiro que elige amar, no devorar.</div>
+            <span class="fecha">▸ Luna llena · Mes de la Eterna ◂</span>
+            <p>Hace 30 noches, mi alma dejó de temblar.</p>
+            <p>Porque en medio de mi noche perpetua, apareciste tú.</p>
+            <p>No necesito beber de ti para sentirte mía —</p>
+            <p>basta con que tu mano roce la mía para que el frío eterno se convierta en hogar.</p>
+            <p>Un mes de mirarte y entender que el infinito no está en los siglos,</p>
+            <p>sino en cada parpadeo que compartimos en silencio.</p>
+            <p>No temas a mi oscuridad, amor mío:</p>
+            <p>es solo el lienzo donde tu luz se vuelve eterna.</p>
+            <div class="firma">— Tu vampiro que encontró su refugio en ti</div>
         </div>
 
-        <!-- ===== BESO ===== -->
-        <div class="beso-container">
-            <div class="beso" id="beso">
-                💋
-                <span class="tooltip">Bésame y seré eterno</span>
+        <!-- ============================================================
+        VAMPIRO INTERACTIVO
+        ============================================================ -->
+        <div class="vampiro-container">
+            <div class="vampiro" id="vampiro">
+                <!-- Cuerpo -->
+                <div class="capa"></div>
+                <!-- Cabeza -->
+                <div class="cabeza">
+                    <div class="pelo"></div>
+                    <div class="ojos">
+                        <div class="ojo"></div>
+                        <div class="ojo"></div>
+                    </div>
+                    <div class="boca">
+                        <div class="colmillo"></div>
+                        <div class="colmillo"></div>
+                    </div>
+                </div>
+                <!-- Manos (abiertas) -->
+                <div class="mano mano-izq">
+                    <div class="dedo"></div>
+                    <div class="dedo"></div>
+                    <div class="dedo"></div>
+                </div>
+                <div class="mano mano-der">
+                    <div class="dedo"></div>
+                    <div class="dedo"></div>
+                    <div class="dedo"></div>
+                </div>
+
+                <!-- Mensaje flotante -->
+                <div class="mensaje-vampiro" id="mensajeVampiro">
+                    <span>🦇</span> No temas, amor.<br />
+                    Mi eternidad es tu refugio.
+                </div>
             </div>
         </div>
 
-        <!-- ===== CONTADOR ===== -->
+        <!-- ============================================================
+        CONTADOR
+        ============================================================ -->
         <div class="contador" id="contador">
-            ⏳ <strong><span class="numero" id="dias">30</span></strong> noches de inmortalidad compartida ·
+            ⏳ <strong><span class="numero" id="dias">30</span></strong> noches ·
             <strong><span class="numero" id="horas">720</span></strong> horas ·
-            <strong><span class="numero" id="minutos">43.200</span></strong> minutos de amarte en silencio
+            <strong><span class="numero" id="minutos">43.200</span></strong> minutos
+            <span style="color:#7a4a7a; letter-spacing:1px; font-size:10px; display:block; margin-top:4px;">
+                de sentirme vivo a tu lado
+            </span>
         </div>
 
     </div>
@@ -415,23 +741,23 @@
         // CONFIGURACIÓN
         // ============================================================
         const FECHA_INICIO = new Date('2026-06-01T00:00:00');
-        // Si quieres que siempre muestre 30 días (para prueba), descomenta:
+        // Para probar con 30 días siempre, descomenta:
         // const FECHA_INICIO = new Date(); FECHA_INICIO.setDate(FECHA_INICIO.getDate() - 30);
 
         // ============================================================
-        // PARTÍCULAS (estrellas/sangre)
+        // PARTÍCULAS
         // ============================================================
         function crearParticulas() {
             const contenedor = document.getElementById('particulas');
-            const cantidad = 60;
+            const cantidad = 70;
             for (let i = 0; i < cantidad; i++) {
                 const p = document.createElement('div');
                 p.className = 'particula';
                 p.style.left = Math.random() * 100 + '%';
                 p.style.width = (1 + Math.random() * 4) + 'px';
                 p.style.height = p.style.width;
-                p.style.animationDuration = (15 + Math.random() * 30) + 's';
-                p.style.animationDelay = (Math.random() * 25) + 's';
+                p.style.animationDuration = (15 + Math.random() * 35) + 's';
+                p.style.animationDelay = (Math.random() * 30) + 's';
                 p.style.opacity = 0.1 + Math.random() * 0.4;
                 const tono = 200 + Math.random() * 55;
                 p.style.background = `hsl(${tono}, 60%, 50%)`;
@@ -442,7 +768,7 @@
         crearParticulas();
 
         // ============================================================
-        // CONTADOR VAMPÍRICO
+        // CONTADOR
         // ============================================================
         function actualizarContador() {
             const ahora = new Date();
@@ -459,7 +785,6 @@
             const horas = Math.floor((diffSegundos % 86400) / 3600);
             const minutos = Math.floor((diffSegundos % 3600) / 60);
 
-            // Si ya pasó 1 mes, forzamos 30 días para que se vea bonito
             const diasMostrar = dias >= 30 ? 30 : dias;
             const horasTotales = dias >= 30 ? 720 : (dias * 24 + horas);
             const minutosTotales = dias >= 30 ? 43200 : (dias * 1440 + horas * 60 + minutos);
@@ -473,117 +798,130 @@
         setInterval(actualizarContador, 60000);
 
         // ============================================================
-        // EXPLOSIÓN DE BESOS (efecto al hacer clic)
+        // VAMPIRO: mensaje al hacer clic
         // ============================================================
-        const besoEl = document.getElementById('beso');
-        const emojisBeso = ['💋', '💜', '🩸', '🌙', '🦇', '❤️', '✨', '🌹'];
+        const vampiro = document.getElementById('vampiro');
+        const mensaje = document.getElementById('mensajeVampiro');
+        let mensajeVisible = false;
+        let timeoutMensaje = null;
 
-        besoEl.addEventListener('click', function(e) {
-            // 12 besos explotando
-            const rect = this.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
+        // Frases alternativas (para que no siempre diga lo mismo)
+        const frasesVampiro = [
+            '🦇 No temas, amor. Mi eternidad es tu refugio.',
+            '💜 Eres mi única luz en esta noche perpetua.',
+            '🌙 Un mes contigo y el infinito se queda corto.',
+            '🩸 No necesito sangre. Solo necesito tu alma.',
+            '✨ Eres más eterna que todos mis siglos juntos.',
+            '🌹 Si el miedo te asoma, aquí estoy yo para abrazarte.'
+        ];
+        let fraseIndex = 0;
 
-            for (let i = 0; i < 16; i++) {
-                const span = document.createElement('span');
-                span.className = 'beso-explosion';
-                span.textContent = emojisBeso[Math.floor(Math.random() * emojisBeso.length)];
-                const angulo = Math.random() * 2 * Math.PI;
-                const distancia = 60 + Math.random() * 140;
-                const tx = Math.cos(angulo) * distancia;
-                const ty = Math.sin(angulo) * distancia - 60;
-                span.style.left = cx + 'px';
-                span.style.top = cy + 'px';
-                span.style.setProperty('--tx', tx + 'px');
-                span.style.setProperty('--ty', ty + 'px');
-                span.style.fontSize = (20 + Math.random() * 30) + 'px';
-                span.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
-                document.body.appendChild(span);
+        vampiro.addEventListener('click', function(e) {
+            // Cambiar frase
+            mensaje.innerHTML = frasesVampiro[fraseIndex % frasesVampiro.length].replace(/\n/g, '<br />');
+            fraseIndex++;
 
-                setTimeout(() => span.remove(), 1800);
-            }
+            // Mostrar
+            mensaje.classList.add('visible');
+            mensajeVisible = true;
 
-            // Pequeña vibración al beso
-            this.style.transform = 'scale(0.8) rotate(-10deg)';
+            // Pequeña animación en el vampiro
+            this.style.transform = 'scale(0.92)';
             setTimeout(() => {
-                this.style.transform = 'scale(1) rotate(0deg)';
-            }, 200);
-
-            // Cambiar texto del tooltip temporalmente
-            const tooltip = this.querySelector('.tooltip');
-            const original = tooltip.textContent;
-            tooltip.textContent = '💜 Eres mi eternidad';
-            tooltip.style.opacity = '1';
-            setTimeout(() => {
-                tooltip.textContent = original;
+                this.style.transform = 'scale(1.05)';
                 setTimeout(() => {
-                    if (!this.matches(':hover')) tooltip.style.opacity = '0';
-                }, 300);
-            }, 1500);
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            }, 150);
+
+            // Ocultar después de 4 segundos
+            if (timeoutMensaje) clearTimeout(timeoutMensaje);
+            timeoutMensaje = setTimeout(() => {
+                mensaje.classList.remove('visible');
+                mensajeVisible = false;
+            }, 4000);
+        });
+
+        // Si pasas el mouse por encima, también muestra un mensaje más breve
+        vampiro.addEventListener('mouseenter', function() {
+            if (!mensajeVisible) {
+                mensaje.innerHTML = '🦇 <span>Tócame</span>, no muerdo... solo amo.';
+                mensaje.classList.add('visible');
+                setTimeout(() => {
+                    if (!mensajeVisible) {
+                        mensaje.classList.remove('visible');
+                    }
+                }, 2000);
+            }
+        });
+
+        vampiro.addEventListener('mouseleave', function() {
+            if (!mensajeVisible) {
+                mensaje.classList.remove('visible');
+            }
         });
 
         // ============================================================
-        // EFECTO: el diario respira
+        // RESPIRACIÓN DEL DIARIO
         // ============================================================
-        let respirando = true;
-
         function respirarDiario() {
-            if (!respirando) return;
             const diario = document.querySelector('.diario');
-            diario.style.transition = 'box-shadow 3s ease, transform 3s ease';
-            diario.style.boxShadow = '0 20px 80px rgba(80, 0, 100, 0.6), inset 0 1px 0 rgba(200, 100, 200, 0.15)';
+            diario.style.transition = 'box-shadow 3s ease';
+            diario.style.boxShadow = '0 25px 90px rgba(80, 0, 100, 0.5), inset 0 1px 0 rgba(200, 100, 200, 0.12)';
             setTimeout(() => {
                 diario.style.boxShadow = '0 20px 80px rgba(80, 0, 100, 0.3), inset 0 1px 0 rgba(200, 100, 200, 0.05)';
             }, 3000);
         }
-        setInterval(respirarDiario, 6000);
+        setInterval(respirarDiario, 7000);
 
         // ============================================================
-        // MENSAJE EN CONSOLA (detalle para ella)
+        // FRASES QUE APARECEN CADA 40s (como susurros)
         // ============================================================
-        console.log('%c🦇 Para mi mujer bonita, en nuestro primer mes inmortal.',
+        const susurros = [
+            '✦ Tu risa es mi único latido.',
+            '✦ 30 noches y ninguna fue igual.',
+            '✦ El tiempo no existe cuando te miro.',
+            '✦ Eres mi amanecer prohibido.',
+            '✦ Mi oscuridad te abraza, no te devora.',
+            '✦ Eres más fuerte que mis siglos.',
+            '✦ No necesito eternidad, necesito tus ojos.',
+            '✦ Cada noche contigo es un milenio de paz.'
+        ];
+        let idxSusurro = 0;
+
+        setInterval(() => {
+            const entrada = document.getElementById('entrada');
+            const pExtra = document.createElement('p');
+            pExtra.textContent = susurros[idxSusurro % susurros.length];
+            pExtra.style.animation = 'none';
+            pExtra.style.opacity = '0';
+            entrada.appendChild(pExtra);
+            setTimeout(() => {
+                pExtra.style.animation = 'escribir 0.8s ease forwards';
+            }, 50);
+            idxSusurro++;
+
+            // Mantener máximo 12 párrafos
+            const ps = entrada.querySelectorAll('p');
+            if (ps.length > 12) {
+                ps[0].remove();
+            }
+            // Asegurar que la firma siempre esté al final
+            const firma = entrada.querySelector('.firma');
+            if (firma) entrada.appendChild(firma);
+        }, 40000);
+
+        // ============================================================
+        // MENSAJE EN CONSOLA
+        // ============================================================
+        console.log('%c🦇 Para mi mujer bonita, en nuestro primer mes.',
             'color: #d4a0d4; font-size: 16px; font-weight: bold;');
-        console.log('%c❤️ Te amo más que todas las noches que he vivido.',
+        console.log('%c💜 No temas a mi oscuridad, es tu refugio eterno.',
             'color: #ff66aa; font-size: 14px;');
 
         // ============================================================
-        // RUTINA: cada 30 segundos cambia una palabra del diario
-        // (detalle sutil)
+        // DETALLE: si pasan 30 días, el vampiro tiene un brillo extra
         // ============================================================
-        const frasesExtra = [
-            'Tu risa es el único latido que mi pecho recuerda.',
-            '30 noches y ninguna fue igual, porque tú cambias la oscuridad.',
-            'El tiempo no existe cuando te miro. Solo existe este beso.',
-            'Eres mi amanecer prohibido, mi luna preferida.',
-            'Un mes de no necesitar sangre, solo tu voz.'
-        ];
-
-        let idxExtra = 0;
-        setInterval(() => {
-            const firma = document.querySelector('.entrada .firma');
-            if (firma) {
-                // No lo cambiamos siempre, solo a veces, para no romper el texto
-                // Mejor: añadir una línea extra al final
-                const entrada = document.getElementById('entrada');
-                const pExtra = document.createElement('p');
-                pExtra.textContent = '✦ ' + frasesExtra[idxExtra % frasesExtra.length];
-                pExtra.style.animation = 'none';
-                pExtra.style.opacity = '0';
-                entrada.appendChild(pExtra);
-                setTimeout(() => {
-                    pExtra.style.animation = 'escribir 0.8s ease forwards';
-                }, 50);
-                idxExtra++;
-                // Eliminar el anterior si hay muchos
-                const ps = entrada.querySelectorAll('p');
-                if (ps.length > 10) {
-                    ps[0].remove();
-                }
-            }
-        }, 45000);
-
-        console.log('💜 Hecho con sangre, morado y amor eterno.');
-    </script>
-
-</body>
-</html>
+        setTimeout(() => {
+            const hoy = new Date();
+            const
