@@ -28,36 +28,165 @@
             align-items: center;
             font-family: 'Cinzel', serif;
             padding: 20px;
-            overflow-x: hidden;
+            overflow: hidden;
             min-height: 100vh;
+            position: relative;
         }
 
         /* ============================================================
-           PARTÍCULAS (estrellas / polvo de luna)
+           FONDO DE ESTRELLAS (capa principal)
            ============================================================ */
-        .particulas {
+        .estrellas-fondo {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             z-index: 0;
+            pointer-events: none;
             overflow: hidden;
         }
-        .particula {
+
+        /* Estrella estática (parpadeo suave) */
+        .estrella {
             position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #9b4d8f;
             border-radius: 50%;
-            box-shadow: 0 0 6px #9b4d8f, 0 0 12px #6a1b5e;
-            animation: flotar linear infinite;
-            opacity: 0.4;
+            background: white;
+            animation: parpadearEstrella 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
-        @keyframes flotar {
+        @keyframes parpadearEstrella {
             0% {
-                transform: translateY(100vh) scale(0);
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Estrella fugaz */
+        .estrella-fugaz {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(200, 150, 255, 0.6);
+            animation: fugaz 8s linear infinite;
+        }
+        @keyframes fugaz {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(400px, 400px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Estrella con brillo (destello) */
+        .destello {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: destellar 3s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(180, 120, 255, 0.8), 0 0 60px rgba(180, 120, 255, 0.3);
+        }
+        @keyframes destellar {
+            0%,
+            100% {
+                opacity: 0.1;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.8);
+                box-shadow: 0 0 40px rgba(200, 150, 255, 1), 0 0 80px rgba(200, 150, 255, 0.5);
+            }
+        }
+
+        /* ============================================================
+           NEBULOSA MORADA (fondo difuso)
+           ============================================================ */
+        .nebulosa {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+            animation: moverNebulosa 20s ease-in-out infinite alternate;
+        }
+        @keyframes moverNebulosa {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(60px, -40px) scale(1.2);
+            }
+        }
+
+        .nebulosa-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #3a0a5e, transparent 70%);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        .nebulosa-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #2a004a, transparent 70%);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: -7s;
+            opacity: 0.3;
+        }
+        .nebulosa-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #5a1a7e, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -13s;
+            opacity: 0.15;
+        }
+
+        /* ============================================================
+           POLVO DE LUNA (partículas pequeñas)
+           ============================================================ */
+        .polvo-luna {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        .polvo {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(200, 150, 255, 0.3);
+            border-radius: 50%;
+            animation: flotarPolvo 15s linear infinite;
+            box-shadow: 0 0 6px rgba(200, 150, 255, 0.2);
+        }
+        @keyframes flotarPolvo {
+            0% {
+                transform: translate(0, 0) scale(0);
                 opacity: 0;
             }
             20% {
@@ -67,13 +196,27 @@
                 opacity: 0.6;
             }
             100% {
-                transform: translateY(-10vh) scale(1);
+                transform: translate(var(--dx), var(--dy)) scale(1);
                 opacity: 0;
             }
         }
 
         /* ============================================================
-           LUNA
+           CONSTELACIONES (líneas entre estrellas)
+           ============================================================ */
+        .constelacion {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        .constelacion svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ============================================================
+           LUNA (con halo)
            ============================================================ */
         .luna {
             position: fixed;
@@ -90,6 +233,28 @@
             z-index: 0;
             animation: latirLuna 5s ease-in-out infinite;
         }
+        .luna::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200, 150, 255, 0.05), transparent 70%);
+            animation: halo 4s ease-in-out infinite alternate;
+        }
+        @keyframes halo {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
         @keyframes latirLuna {
             0%,
             100% {
@@ -103,7 +268,7 @@
         }
 
         /* ============================================================
-           NIEBA (efecto de fondo)
+           NIEBLA
            ============================================================ */
         .niebla {
             position: fixed;
@@ -111,7 +276,7 @@
             left: 0;
             width: 100%;
             height: 120px;
-            background: linear-gradient(to top, rgba(80, 0, 100, 0.15), transparent);
+            background: linear-gradient(to top, rgba(80, 0, 100, 0.2), transparent);
             z-index: 0;
             pointer-events: none;
         }
@@ -244,7 +409,7 @@
         }
 
         /* ============================================================
-           VAMPIRO (CSS puro, interactivo)
+           VAMPIRO
            ============================================================ */
         .vampiro-container {
             display: flex;
@@ -272,7 +437,6 @@
             transform: scale(0.92);
         }
 
-        /* --- Cuerpo / Capa --- */
         .vampiro .capa {
             position: absolute;
             bottom: 0;
@@ -285,7 +449,6 @@
             border: 1px solid rgba(150, 70, 150, 0.15);
             box-shadow: inset 0 -20px 40px rgba(80, 0, 100, 0.2);
         }
-        /* Cuello de la capa */
         .vampiro .capa::before {
             content: '';
             position: absolute;
@@ -299,7 +462,6 @@
             border: 1px solid rgba(150, 70, 150, 0.1);
             border-bottom: none;
         }
-        /* Cuello camisa */
         .vampiro .capa::after {
             content: '';
             position: absolute;
@@ -314,7 +476,6 @@
             border-right: 1px solid rgba(150, 70, 150, 0.08);
         }
 
-        /* --- Cabeza --- */
         .vampiro .cabeza {
             position: absolute;
             top: 0;
@@ -328,7 +489,6 @@
             box-shadow: inset 0 -10px 30px rgba(80, 0, 100, 0.15);
         }
 
-        /* --- Pelo --- */
         .vampiro .pelo {
             position: absolute;
             top: -2px;
@@ -363,7 +523,6 @@
             transform: rotate(20deg);
         }
 
-        /* --- Ojos (brillan) --- */
         .vampiro .ojos {
             position: absolute;
             top: 20px;
@@ -403,7 +562,6 @@
             }
         }
 
-        /* --- Sonrisa / Colmillos --- */
         .vampiro .boca {
             position: absolute;
             bottom: 12px;
@@ -436,7 +594,6 @@
             opacity: 0.3;
         }
 
-        /* --- Manos (abiertas, acogedoras) --- */
         .vampiro .mano {
             position: absolute;
             bottom: 20px;
@@ -467,7 +624,6 @@
             border: 1px solid rgba(150, 70, 150, 0.04);
         }
 
-        /* --- Burbuja de mensaje (al hacer clic) --- */
         .mensaje-vampiro {
             position: absolute;
             top: -70px;
@@ -561,6 +717,12 @@
                 right: 15px;
                 box-shadow: 0 0 40px #7a2a8e, 0 0 80px #5a1a6e66;
             }
+            .luna::after {
+                width: 140px;
+                height: 140px;
+                top: -20px;
+                left: -20px;
+            }
             .vampiro {
                 width: 90px;
                 height: 110px;
@@ -610,6 +772,10 @@
             .contador .numero {
                 font-size: 14px;
             }
+            .nebulosa-1,
+            .nebulosa-2 {
+                display: none;
+            }
         }
 
         @media (max-width: 380px) {
@@ -631,7 +797,6 @@
             }
         }
 
-        /* scroll */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -647,9 +812,21 @@
 <body>
 
     <!-- ============================================================
-    PARTÍCULAS
+    NEBULOSAS
     ============================================================ -->
-    <div class="particulas" id="particulas"></div>
+    <div class="nebulosa nebulosa-1"></div>
+    <div class="nebulosa nebulosa-2"></div>
+    <div class="nebulosa nebulosa-3"></div>
+
+    <!-- ============================================================
+    ESTRELLAS DE FONDO
+    ============================================================ -->
+    <div class="estrellas-fondo" id="estrellasFondo"></div>
+
+    <!-- ============================================================
+    POLVO DE LUNA
+    ============================================================ -->
+    <div class="polvo-luna" id="polvoLuna"></div>
 
     <!-- ============================================================
     LUNA
@@ -684,13 +861,11 @@
         </div>
 
         <!-- ============================================================
-        VAMPIRO INTERACTIVO
+        VAMPIRO
         ============================================================ -->
         <div class="vampiro-container">
             <div class="vampiro" id="vampiro">
-                <!-- Cuerpo -->
                 <div class="capa"></div>
-                <!-- Cabeza -->
                 <div class="cabeza">
                     <div class="pelo"></div>
                     <div class="ojos">
@@ -702,7 +877,6 @@
                         <div class="colmillo"></div>
                     </div>
                 </div>
-                <!-- Manos (abiertas) -->
                 <div class="mano mano-izq">
                     <div class="dedo"></div>
                     <div class="dedo"></div>
@@ -714,7 +888,6 @@
                     <div class="dedo"></div>
                 </div>
 
-                <!-- Mensaje flotante -->
                 <div class="mensaje-vampiro" id="mensajeVampiro">
                     <span>🦇</span> No temas, amor.<br />
                     Mi eternidad es tu refugio.
@@ -741,31 +914,96 @@
         // CONFIGURACIÓN
         // ============================================================
         const FECHA_INICIO = new Date('2026-06-01T00:00:00');
-        // Para probar con 30 días siempre, descomenta:
+        // Para probar con 30 días siempre:
         // const FECHA_INICIO = new Date(); FECHA_INICIO.setDate(FECHA_INICIO.getDate() - 30);
 
         // ============================================================
-        // PARTÍCULAS
+        // GENERAR ESTRELLAS
         // ============================================================
-        function crearParticulas() {
-            const contenedor = document.getElementById('particulas');
-            const cantidad = 70;
+        function generarEstrellas() {
+            const contenedor = document.getElementById('estrellasFondo');
+            const cantidad = 180;
+
             for (let i = 0; i < cantidad; i++) {
-                const p = document.createElement('div');
-                p.className = 'particula';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.width = (1 + Math.random() * 4) + 'px';
-                p.style.height = p.style.width;
-                p.style.animationDuration = (15 + Math.random() * 35) + 's';
-                p.style.animationDelay = (Math.random() * 30) + 's';
-                p.style.opacity = 0.1 + Math.random() * 0.4;
-                const tono = 200 + Math.random() * 55;
-                p.style.background = `hsl(${tono}, 60%, 50%)`;
-                p.style.boxShadow = `0 0 ${6 + Math.random() * 12}px hsl(${tono}, 60%, 50%)`;
-                contenedor.appendChild(p);
+                const estrella = document.createElement('div');
+                estrella.className = 'estrella';
+
+                const size = 1 + Math.random() * 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+
+                estrella.style.width = size + 'px';
+                estrella.style.height = size + 'px';
+                estrella.style.left = x + '%';
+                strella.style.top = y + '%';
+                estrella.style.animationDelay = (Math.random() * 5) + 's';
+                estrella.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+
+                // Algunas estrellas más brillantes
+                if (Math.random() > 0.7) {
+                    estrella.style.boxShadow = '0 0 12px rgba(200, 150, 255, 0.6), 0 0 24px rgba(200, 150, 255, 0.2)';
+                    estrella.style.background = '#d4a0d4';
+                }
+
+                contenedor.appendChild(estrella);
+            }
+
+            // Estrellas fugaces
+            for (let i = 0; i < 4; i++) {
+                const fugaz = document.createElement('div');
+                fugaz.className = 'estrella-fugaz';
+                fugaz.style.left = (Math.random() * 70 + 10) + '%';
+                fugaz.style.top = (Math.random() * 40 + 5) + '%';
+                fugaz.style.animationDelay = (Math.random() * 15 + 5) + 's';
+                fugaz.style.animationDuration = (6 + Math.random() * 4) + 's';
+                if (Math.random() > 0.5) {
+                    fugaz.style.boxShadow = '0 0 30px rgba(200, 150, 255, 0.8), 0 0 60px rgba(200, 150, 255, 0.3)';
+                }
+                contenedor.appendChild(fugaz);
+            }
+
+            // Destellos (estrellas que brillan fuerte)
+            for (let i = 0; i < 12; i++) {
+                const destello = document.createElement('div');
+                destello.className = 'destello';
+                destello.style.left = (Math.random() * 95 + 2) + '%';
+                destello.style.top = (Math.random() * 95 + 2) + '%';
+                destello.style.animationDelay = (Math.random() * 4) + 's';
+                destello.style.animationDuration = (2 + Math.random() * 3) + 's';
+                const size = 2 + Math.random() * 4;
+                destello.style.width = size + 'px';
+                destello.style.height = size + 'px';
+                contenedor.appendChild(destello);
             }
         }
-        crearParticulas();
+
+        generarEstrellas();
+
+        // ============================================================
+        // GENERAR POLVO DE LUNA
+        // ============================================================
+        function generarPolvoLuna() {
+            const contenedor = document.getElementById('polvoLuna');
+            const cantidad = 40;
+
+            for (let i = 0; i < cantidad; i++) {
+                const polvo = document.createElement('div');
+                polvo.className = 'polvo';
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                polvo.style.left = x + '%';
+                polvo.style.top = y + '%';
+                polvo.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px');
+                polvo.style.setProperty('--dy', (Math.random() * 200 - 100) + 'px');
+                polvo.style.animationDuration = (12 + Math.random() * 20) + 's';
+                polvo.style.animationDelay = (Math.random() * 15) + 's';
+                polvo.style.width = (1 + Math.random() * 3) + 'px';
+                polvo.style.height = polvo.style.width;
+                contenedor.appendChild(polvo);
+            }
+        }
+
+        generarPolvoLuna();
 
         // ============================================================
         // CONTADOR
@@ -805,27 +1043,26 @@
         let mensajeVisible = false;
         let timeoutMensaje = null;
 
-        // Frases alternativas (para que no siempre diga lo mismo)
         const frasesVampiro = [
             '🦇 No temas, amor. Mi eternidad es tu refugio.',
             '💜 Eres mi única luz en esta noche perpetua.',
             '🌙 Un mes contigo y el infinito se queda corto.',
             '🩸 No necesito sangre. Solo necesito tu alma.',
             '✨ Eres más eterna que todos mis siglos juntos.',
-            '🌹 Si el miedo te asoma, aquí estoy yo para abrazarte.'
+            '🌹 Si el miedo te asoma, aquí estoy yo para abrazarte.',
+            '🌟 Cada estrella que ves soy yo mirándote.',
+            '💫 Tú eres mi constelación favorita.',
+            '🌌 En este universo, solo existes tú para mí.'
         ];
         let fraseIndex = 0;
 
         vampiro.addEventListener('click', function(e) {
-            // Cambiar frase
             mensaje.innerHTML = frasesVampiro[fraseIndex % frasesVampiro.length].replace(/\n/g, '<br />');
             fraseIndex++;
 
-            // Mostrar
             mensaje.classList.add('visible');
             mensajeVisible = true;
 
-            // Pequeña animación en el vampiro
             this.style.transform = 'scale(0.92)';
             setTimeout(() => {
                 this.style.transform = 'scale(1.05)';
@@ -834,7 +1071,6 @@
                 }, 200);
             }, 150);
 
-            // Ocultar después de 4 segundos
             if (timeoutMensaje) clearTimeout(timeoutMensaje);
             timeoutMensaje = setTimeout(() => {
                 mensaje.classList.remove('visible');
@@ -842,7 +1078,6 @@
             }, 4000);
         });
 
-        // Si pasas el mouse por encima, también muestra un mensaje más breve
         vampiro.addEventListener('mouseenter', function() {
             if (!mensajeVisible) {
                 mensaje.innerHTML = '🦇 <span>Tócame</span>, no muerdo... solo amo.';
@@ -875,7 +1110,7 @@
         setInterval(respirarDiario, 7000);
 
         // ============================================================
-        // FRASES QUE APARECEN CADA 40s (como susurros)
+        // FRASES QUE APARECEN CADA 40s
         // ============================================================
         const susurros = [
             '✦ Tu risa es mi único latido.',
@@ -885,7 +1120,9 @@
             '✦ Mi oscuridad te abraza, no te devora.',
             '✦ Eres más fuerte que mis siglos.',
             '✦ No necesito eternidad, necesito tus ojos.',
-            '✦ Cada noche contigo es un milenio de paz.'
+            '✦ Cada noche contigo es un milenio de paz.',
+            '✦ Eres la estrella que guía mi noche.',
+            '✦ Tu alma brilla más que todas las lunas.'
         ];
         let idxSusurro = 0;
 
@@ -901,12 +1138,10 @@
             }, 50);
             idxSusurro++;
 
-            // Mantener máximo 12 párrafos
             const ps = entrada.querySelectorAll('p');
-            if (ps.length > 12) {
+            if (ps.length > 14) {
                 ps[0].remove();
             }
-            // Asegurar que la firma siempre esté al final
             const firma = entrada.querySelector('.firma');
             if (firma) entrada.appendChild(firma);
         }, 40000);
@@ -918,9 +1153,11 @@
             'color: #d4a0d4; font-size: 16px; font-weight: bold;');
         console.log('%c💜 No temas a mi oscuridad, es tu refugio eterno.',
             'color: #ff66aa; font-size: 14px;');
+        console.log('%c🌟 Cada estrella en este fondo es un beso que te he dado en silencio.',
+            'color: #c9a0c9; font-size: 13px; font-style: italic;');
 
         // ============================================================
-        // DETALLE: si pasan 30 días, el vampiro tiene un brillo extra
+        // DETALLE: brillo extra si pasan 30 días
         // ============================================================
         setTimeout(() => {
             const hoy = new Date();
